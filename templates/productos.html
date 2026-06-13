@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Productos</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+
+body{
+    background:#f4f6f9;
+}
+
+.sidebar{
+    width:250px;
+    height:100vh;
+    background:#1f2937;
+    position:fixed;
+}
+
+.sidebar h3{
+    color:white;
+    text-align:center;
+    padding:20px;
+}
+
+.sidebar a{
+    display:block;
+    color:white;
+    text-decoration:none;
+    padding:15px 25px;
+}
+
+.sidebar a:hover{
+    background:#374151;
+}
+
+.content{
+    margin-left:250px;
+    padding:30px;
+}
+
+.card{
+    border:none;
+    border-radius:15px;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+    transition:.3s;
+}
+
+.card-img-top{
+    height:220px;
+    object-fit:cover;
+}
+
+.btn-group-custom{
+    display:flex;
+    flex-wrap:wrap;
+    gap:5px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="sidebar">
+
+```
+<h3>Tienda Ropa</h3>
+
+<a href="/dashboard">🏠 Dashboard</a>
+<a href="/productos">👕 Productos</a>
+<a href="/ventas">💰 Ventas</a>
+<a href="/reportes">📊 Reportes</a>
+<a href="/historial_ventas">📋 Historial Ventas</a>
+```
+
+</div>
+
+<div class="content">
+
+```
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+    <h2>Catálogo de Productos</h2>
+
+    <div class="mb-4">
+
+    <a href="/productos" class="btn btn-dark btn-sm">
+        Todos
+    </a>
+
+    <a href="/productos?categoria=Playeras" class="btn btn-outline-primary btn-sm">
+        👕 Playeras
+    </a>
+
+    <a href="/productos?categoria=Pantalones" class="btn btn-outline-primary btn-sm">
+        👖 Pantalones
+    </a>
+
+    <a href="/productos?categoria=Chaquetas" class="btn btn-outline-primary btn-sm">
+        🧥 Chaquetas
+    </a>
+
+    <a href="/productos?categoria=Sudaderas" class="btn btn-outline-primary btn-sm">
+        🧢 Sudaderas
+    </a>
+
+    <a href="/productos?categoria=Tenis" class="btn btn-outline-primary btn-sm">
+        👟 Tenis
+    </a>
+
+</div>
+    <a href="/agregar_producto" class="btn btn-success">
+        + Agregar Producto
+    </a>
+
+</div>
+
+<form method="GET" action="/productos" class="mb-4">
+
+    <input
+        type="text"
+        name="buscar"
+        class="form-control"
+        placeholder="Buscar producto por nombre">
+
+</form>
+
+<div class="row">
+
+    {% for producto in productos %}
+
+    <div class="col-md-3 mb-4">
+
+        <div class="card shadow">
+
+            <img
+                src="/static/img/{{ producto[7] }}"
+                class="card-img-top"
+                onerror="this.src='/static/img/default.png'">
+
+            <div class="card-body">
+
+                <h5 class="card-title">
+                    {{ producto[1] }}
+                </h5>
+
+                <p class="card-text">
+
+                    📂 {{ producto[2] }}<br>
+
+                    👕 Talla:
+                    {{ producto[3] }}<br>
+
+                    🎨 Color:
+                    {{ producto[4] }}<br>
+
+                    💲 ${{ producto[5] }}<br>
+
+                    📦 Stock:
+                    {{ producto[6] }}
+
+                </p>
+
+                <div class="btn-group-custom">
+
+                    <a href="/producto/{{ producto[0] }}"
+                       class="btn btn-primary btn-sm">
+                       Ver Detalle
+                    </a>
+
+                    <a href="/agregar_carrito/{{ producto[0] }}"
+                       class="btn btn-success btn-sm">
+                       🛒 Carrito
+                    </a>
+
+                    <a href="/editar_producto/{{ producto[0] }}"
+                       class="btn btn-warning btn-sm">
+                       Editar
+                    </a>
+
+                    <a href="/eliminar_producto/{{ producto[0] }}"
+                       class="btn btn-danger btn-sm"
+                       onclick="return confirm('¿Eliminar producto?')">
+                       Eliminar
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+```
+
+</div>
+
+</body>
+</html>
